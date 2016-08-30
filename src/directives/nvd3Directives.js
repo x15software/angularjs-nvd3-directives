@@ -67,14 +67,17 @@
                     height: '@',
                     id: '@',
                     showlegend: '@',
-                    tooltips: '@',
                     showxaxis: '@',
                     showyaxis: '@',
                     rightalignyaxis: '@',
                     defaultstate: '@',
                     nodata: '@',
                     margin: '&',
-                    tooltipcontent: '&',
+                    tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     x: '&',
                     y: '&',
@@ -176,7 +179,6 @@
                                         .forceX(attrs.forcex === undefined ? [] : scope.$eval(attrs.forcex)) // List of numbers to Force into the X scale (ie. 0, or a max / min, etc.)
                                         .forceY(attrs.forcey === undefined ? [0] : scope.$eval(attrs.forcey)) // List of numbers to Force into the Y scale
                                         .showLegend(attrs.showlegend === undefined ? false : (attrs.showlegend === 'true'))
-                                        // .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
                                         .showXAxis(attrs.showxaxis === undefined ? false : (attrs.showxaxis  === 'true'))
                                         .showYAxis(attrs.showyaxis === undefined ? false : (attrs.showyaxis  === 'true'))
                                         .rightAlignYAxis(attrs.rightalignyaxis === undefined ? false : (attrs.rightalignyaxis  === 'true'))
@@ -192,8 +194,23 @@
                                         chart.useInteractiveGuideline(attrs.useinteractiveguideline === undefined ? false : (attrs.useinteractiveguideline === 'true'));
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     scope.d3Call(data, chart);
@@ -224,13 +241,16 @@
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     showxaxis: '@',
                     showyaxis: '@',
                     rightalignyaxis: '@',
                     defaultstate: '@',
                     nodata: '@',
                     margin: '&',
-                    tooltipcontent: '&',
                     color: '&',
                     x: '&',
                     y: '&',
@@ -333,7 +353,6 @@
                                         .forceX(attrs.forcex === undefined ? [] : scope.$eval(attrs.forcex)) // List of numbers to Force into the X scale (ie. 0, or a max / min, etc.)
                                         .forceY(attrs.forcey === undefined ? [0] : scope.$eval(attrs.forcey)) // List of numbers to Force into the Y scale
                                         .showLegend(attrs.showlegend === undefined ? false : (attrs.showlegend === 'true'))
-                                        // .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
                                         .showXAxis(attrs.showxaxis === undefined ? false : (attrs.showxaxis  === 'true'))
                                         .showYAxis(attrs.showyaxis === undefined ? false : (attrs.showyaxis  === 'true'))
                                         .rightAlignYAxis(attrs.rightalignyaxis === undefined ? false : (attrs.rightalignyaxis  === 'true'))
@@ -351,8 +370,23 @@
                                         chart.useInteractiveGuideline(attrs.useinteractiveguideline === undefined ? false : (attrs.useinteractiveguideline === 'true'));
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     scope.d3Call(data, chart);
@@ -383,10 +417,13 @@
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     showcontrols: '@',
                     nodata: '@',
                     margin: '&',
-                    tooltipcontent: '&',
                     color: '&',
                     x: '&',
                     y: '&',
@@ -503,7 +540,6 @@
                                         .showControls(attrs.showcontrols === undefined ? false : (attrs.showcontrols === 'true'))
                                         .showXAxis(attrs.showxaxis === undefined ? false : (attrs.showxaxis  === 'true'))
                                         .showYAxis(attrs.showyaxis === undefined ? false : (attrs.showyaxis  === 'true'))
-                                        // .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .interactive(attrs.interactive === undefined ? false : (attrs.interactive === 'true'))
                                         .clipEdge(attrs.clipedge === undefined ? false : (attrs.clipedge === 'true'))
@@ -533,8 +569,23 @@
                                         chart.interpolate(attrs.interpolate);
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                   chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     if(attrs.xscale){
@@ -593,7 +644,10 @@
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
-                    tooltipcontent: '&',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     showcontrols: '@',
                     nodata: '@',
@@ -712,8 +766,23 @@
                                         .color(attrs.color === undefined ? nv.utils.defaultColor() : scope.color())
                                         .stacked(attrs.stacked === undefined ? false : attrs.stacked === 'true');
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     scope.d3Call(data, chart);
@@ -743,9 +812,12 @@
                     height: '@',
                     id: '@',
                     tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     showxaxis: '@',
                     showyaxis: '@',
-                    tooltipcontent: '&',
                     staggerlabels: '@',
                     color: '&',
                     margin: '&',
@@ -850,8 +922,23 @@
                                         .staggerLabels(attrs.staggerlabels === undefined ? false : (attrs.staggerlabels === 'true'))
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color());
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     if(attrs.valueformat){
@@ -885,13 +972,16 @@
                     height: '@',
                     id: '@',
                     tooltips: '@',
-                    tooltipcontent: '&',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     margin: '&',
                     nodata: '@',
                     x: '&',
                     y: '&',
-    //                forcex: '@',
+                    // forcex: '@',
                     forcey: '@',
                     isarea: '@',
                     interactive: '@',
@@ -996,8 +1086,23 @@
                                         chart.useInteractiveGuideline(attrs.useinteractiveguideline === undefined ? false : (attrs.useinteractiveguideline === 'true'));
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     if(attrs.valueformat){
@@ -1032,7 +1137,10 @@
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
-                    tooltipcontent: '&',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     showcontrols: '@',
                     margin: '&',
@@ -1142,8 +1250,23 @@
                                         .showValues(attrs.showvalues === undefined ? false : (attrs.showvalues === 'true'))
                                         .stacked(attrs.stacked === undefined ? false : (attrs.stacked === 'true'));
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     if(attrs.valueformat){
@@ -1191,7 +1314,10 @@
                     labelthreshold: '@',
                     description: '&',
                     tooltips: '@',
-                    tooltipcontent: '&',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     valueFormat: '&',
 
                     callback: '&',
@@ -1242,7 +1368,6 @@
                                         .width(scope.width)
                                         .height(scope.height)
                                         .margin(scope.margin)
-                                        // .tooltips(attrs.tooltips === undefined ? false : attrs.tooltips === 'true')
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .showLabels(attrs.showlabels === undefined ? false : attrs.showlabels === 'true')
                                         .labelThreshold(attrs.labelthreshold === undefined ? 0.02 : attrs.labelthreshold)
@@ -1253,9 +1378,26 @@
                                         .color(attrs.color === undefined ? nv.utils.defaultColor() : scope.color())
                                         .donut(attrs.donut === undefined ? false : attrs.donut === 'true')
                                         .donutRatio(attrs.donutratio === undefined ? 0.5 : attrs.donutratio);
-                                    if (attrs.tooltipcontent) {
-                                    // chart.tooltipContent(scope.tooltipcontent());
+
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
                                     }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
+                                    }
+
                                     scope.d3Call(data, chart);
                                     nv.utils.windowResize( chart.update );
                                     scope.chart = chart;
@@ -1279,7 +1421,6 @@
                     height: '@',
                     id: '@',
                     showlegend: '@',
-                    tooltips: '@',
                     showcontrols: '@',
                     showDistX: '@',
                     showDistY: '@',
@@ -1287,9 +1428,11 @@
                     fisheye: '@',
                     xPadding: '@',
                     yPadding: '@',
-                    tooltipContent: '&',
-                    tooltipXContent: '&',
-                    tooltipYContent: '&',
+                    tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     margin: '&',
                     nodata: '@',
@@ -1422,7 +1565,7 @@
                                         chart.scatter.shape(attrs.shape === undefined ? function(d) { return d.shape || 'circle'; } : scope.shape());
                                     }
 
-    //'pointActive', 'clipVoronoi', 'clipRadius', 'useVoronoi'
+                                    //'pointActive', 'clipVoronoi', 'clipRadius', 'useVoronoi'
 
                                     if(attrs.xdomain){
                                         if(Array.isArray(scope.$eval(attrs.xdomain))){
@@ -1485,15 +1628,16 @@
                     height: '@',
                     id: '@',
                     showlegend: '@',
-                    tooltips: '@',
                     showcontrols: '@',
                     showDistX: '@',
                     showDistY: '@',
                     rightAlignYAxis: '@',
                     fisheye: '@',
-                    tooltipContent: '&',
-                    tooltipXContent: '&',
-                    tooltipYContent: '&',
+                    tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     margin: '&',
                     nodata: '@',
@@ -1647,7 +1791,6 @@
                     height: '@',
                     id: '@',
                     showlegend: '@',
-                    tooltips: '@',
                     showxaxis: '@',
                     showyaxis: '@',
                     forceX: '@',
@@ -1657,13 +1800,17 @@
                     defaultstate: '@',
                     nodata: '@',
                     margin: '&',
-                    tooltipcontent: '&',
+                    tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     x: '&',
                     y: '&',
                     clipvoronoi: '@',
                     interpolate: '@',
-    //                'xScale', 'yScale', 'xDomain', 'yDomain', defined
+                    //'xScale', 'yScale', 'xDomain', 'yDomain', defined
 
                     callback: '&',
 
@@ -1791,8 +1938,23 @@
                                         chart.bars.forceY(scope.$eval(attrs.forcey));
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     if ( attrs.lineinteractive && attrs.lineinteractive === 'false') {
@@ -1831,7 +1993,6 @@
                     height2: '@',
                     id: '@',
                     showlegend: '@',
-                    tooltips: '@',
                     showxaxis: '@',
                     showyaxis: '@',
                     rightalignyaxis: '@',
@@ -1839,7 +2000,11 @@
                     nodata: '@',
                     margin: '&',
                     margin2: '&',
-                    tooltipcontent: '&',
+                    tooltips: '@',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     color: '&',
                     x: '&',
                     y: '&',
@@ -1991,7 +2156,7 @@
                                     } else {
                                         scope.margin2 = {top: 0, right: 30, bottom: 20, left: 60};
                                     }
-//'xDomain', 'yDomain', 'xRange', 'yRange', ''clipEdge', 'clipVoronoi'
+                                   //'xDomain', 'yDomain', 'xRange', 'yRange', ''clipEdge', 'clipVoronoi'
                                    var chart = nv.models.lineWithFocusChart()
                                         .width(scope.width)
                                         .height(scope.height)
@@ -2017,8 +2182,23 @@
                                         chart.defined(scope.defined());
                                     }
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     scope.d3Call(data, chart);
@@ -2049,7 +2229,10 @@
                     id: '@',
                     margin: '&',
                     tooltips: '@',
-                    tooltipcontent: '&',
+                    tooltipcontentgenerator: '&',
+                    tooltipheaderformatter: '&',
+                    tooltipkeyformatter: '&',
+                    tooltipvalueformatter: '&',
                     orient: '@',  // left, right, top, bottom
                     ranges: '&', //ranges (bad, satisfactory, good)
                     markers: '&', // markers (previous, goal)
@@ -2090,15 +2273,30 @@
                                         .height(scope.height)
                                         .margin(scope.margin)
                                         .orient(attrs.orient === undefined ? 'left' : attrs.orient)
-    //                                    .ranges(attrs.ranges === undefined ? function(d){ return d.ranges; } : scope.ranges())
-    //                                    .markers(attrs.markers === undefined ? function(d){ return d.markers; } : scope.markers())
-    //                                    .measures(attrs.measures === undefined ? function(d){ return d.measures; } : scope.measures())
+                                        //.ranges(attrs.ranges === undefined ? function(d){ return d.ranges; } : scope.ranges())
+                                        //.markers(attrs.markers === undefined ? function(d){ return d.markers; } : scope.markers())
+                                        //.measures(attrs.measures === undefined ? function(d){ return d.measures; } : scope.measures())
                                         .tickFormat(attrs.tickformat === undefined ? null : scope.tickformat())
                                         // .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata);
 
-                                    if(attrs.tooltipcontent){
-                                        // chart.tooltipContent(scope.tooltipcontent());
+                                    chart.tooltip.enabled(attrs.tooltips === undefined ? false : true);
+
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if(attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
                                     scope.d3Call(data, chart);
