@@ -29,6 +29,12 @@ function processEvents(chart, scope) {
 				scope.$emit('changeState.directive', event);
 			});
 		}
+
+    if (chart.dispatch.renderEnd) {
+      chart.dispatch.on('renderEnd.directive', function (event) {
+        scope.$emit('renderEnd.directive', event);
+      });
+    }
 	}
 
 	if (chart.lines) {
