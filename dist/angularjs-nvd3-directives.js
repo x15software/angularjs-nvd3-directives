@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.8 - 2016-08-25
+/*! angularjs-nvd3-directives - v0.0.8 - 2016-08-31
  * http://angularjs-nvd3-directives.github.io/angularjs-nvd3-directives
  * Copyright (c) 2016 Christian Maurer; Licensed Apache License, v2.0 */
 (function () {
@@ -262,6 +262,12 @@
       if (chart.dispatch.changeState) {
         chart.dispatch.on('changeState.directive', function (event) {
           scope.$emit('changeState.directive', event);
+        });
+      }
+
+      if (chart.dispatch.renderEnd) {
+        chart.dispatch.on('renderEnd.directive', function (event) {
+          scope.$emit('renderEnd.directive', event);
         });
       }
     }
