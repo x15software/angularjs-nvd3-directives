@@ -1398,6 +1398,10 @@
                                         chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
+                                    if (attrs.transitionduration) {
+                                        chart.duration(parseInt(attrs.transitionduration));
+                                    }
+
                                     scope.d3Call(data, chart);
                                     nv.utils.windowResize( chart.update );
                                     scope.chart = chart;

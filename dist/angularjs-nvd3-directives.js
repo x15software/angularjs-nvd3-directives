@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.8 - 2016-08-31
+/*! angularjs-nvd3-directives - v0.0.8 - 2016-09-14
  * http://angularjs-nvd3-directives.github.io/angularjs-nvd3-directives
  * Copyright (c) 2016 Christian Maurer; Licensed Apache License, v2.0 */
 (function () {
@@ -1951,6 +1951,9 @@
                   if (attrs.tooltipcontentgenerator) {
                     var contentGenerator = scope.tooltipcontentgenerator();
                     chart.tooltip.contentGenerator(contentGenerator(chart));
+                  }
+                  if (attrs.transitionduration) {
+                    chart.duration(parseInt(attrs.transitionduration));
                   }
                   scope.d3Call(data, chart);
                   nv.utils.windowResize(chart.update);
