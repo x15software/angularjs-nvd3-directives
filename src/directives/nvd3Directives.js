@@ -55,6 +55,59 @@
         }
     }
 
+    // Generator function for window.resize handler.
+    function onResizeChart(chart, element) {
+        var resizeHandlerTimeout;
+
+        return function(e) {
+            if (resizeHandlerTimeout) { clearTimeout(resizeHandlerTimeout); }
+
+            resizeHandlerTimeout = setTimeout(function() {
+                if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
+                    if (chart && chart.update) {
+                        chart.update();
+                    }
+                }
+            }, 500); // Debounce the chart resize
+        };
+    }
+
+    // Replace nv.utils.windowResize with a version that removes handlers on scope.$destroy.
+    nv.utils.windowResize = function(scope, handler) {
+
+      // Legacy support
+      if (typeof scope === 'function') {
+        handler = scope;
+        scope = undefined;
+        nv.deprecated('WARNING: Failed to pass $scope when binding to windowResize event');
+      }
+
+      if (window.addEventListener) {
+        if (handler) {
+          window.addEventListener('resize', handler);
+        }
+      } else {
+        nv.log('ERROR: Failed to bind to window.resize with: ', handler);
+      }
+
+      // return object with clear function to remove the single added callback.
+      var retObj = {
+        callback: handler,
+        clear: function() {
+          window.removeEventListener('resize', handler);
+        }
+      };
+
+      // Hookup our auto-destroy if passed scope
+      if (scope) {
+        scope.$on('$destroy', function() {
+          retObj.clear();
+        });
+      }
+
+      return retObj;
+    };
+
     angular.module('nvd3ChartDirectives', [])
         .directive('nvd3LineChart', ['$filter', function($filter){
             return {
@@ -214,11 +267,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -390,11 +440,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -617,11 +664,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -786,11 +830,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -946,11 +987,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1110,11 +1148,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1274,11 +1309,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1399,7 +1431,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize( chart.update );
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1602,11 +1635,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1765,11 +1795,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1966,11 +1993,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2202,11 +2226,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2300,11 +2321,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2390,11 +2408,8 @@
                                     }
 
                                     scope.d3Call(data, chart);
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2578,11 +2593,8 @@
 
                                     scope.d3Call(data, chart);
 
-                                    nv.utils.windowResize(function(e) {
-                                      if (e.target === $(window)[0] || element.parents('#' + e.target.id).length) {
-                                        chart.update();
-                                      }
-                                    });
+                                    var resizeHandler = onResizeChart(chart, element);
+                                    nv.utils.windowResize(scope, resizeHandler);
 
                                     scope.chart = chart;
                                     return chart;
