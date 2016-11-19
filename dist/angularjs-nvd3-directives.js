@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.8 - 2016-09-20
+/*! angularjs-nvd3-directives - v0.0.8 - 2016-11-18
  * http://angularjs-nvd3-directives.github.io/angularjs-nvd3-directives
  * Copyright (c) 2016 Christian Maurer; Licensed Apache License, v2.0 */
 (function () {
@@ -785,15 +785,18 @@
       //if an id is not supplied, create a random id.
       if (d3.select('[data-chartid=' + dataAttributeChartID + '] svg').empty()) {
         d3.select('[data-chartid=' + dataAttributeChartID + ']').append('svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
+        element.find('.nvtooltip').css('opacity', '0');
       } else {
         d3.select('[data-chartid=' + dataAttributeChartID + '] svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
       }
     } else {
       if (angular.isArray(data) && data.length === 0) {
         d3.select('#' + attrs.id + ' svg').remove();
+        element.find('.nvtooltip').css('opacity', '0');
       }
       if (d3.select('#' + attrs.id + ' svg').empty()) {
         d3.select('#' + attrs.id).append('svg');
+        element.find('.nvtooltip').css('opacity', '0');
       }
       d3.select('#' + attrs.id + ' svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
     }
