@@ -41,15 +41,18 @@
           //if an id is not supplied, create a random id.
           if (d3.select('[data-chartid=' + dataAttributeChartID + '] svg').empty()) {
             d3.select('[data-chartid=' + dataAttributeChartID + ']').append('svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
+            element.find('.nvtooltip').css('opacity', '0');
           } else {
             d3.select('[data-chartid=' + dataAttributeChartID + '] svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
           }
         } else {
           if (angular.isArray(data) && data.length === 0) {
             d3.select('#' + attrs.id + ' svg').remove();
+            element.find('.nvtooltip').css('opacity', '0');
           }
           if (d3.select('#' + attrs.id + ' svg').empty()) {
             d3.select('#' + attrs.id).append('svg');
+            element.find('.nvtooltip').css('opacity', '0');
           }
           d3.select('#' + attrs.id + ' svg').attr('height', scope.height).attr('width', scope.width).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
         }
