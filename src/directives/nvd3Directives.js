@@ -1622,6 +1622,23 @@
                                         chart.zScale(scope.zscale());
                                     }
 
+                                    if (attrs.tooltipheaderformatter) {
+                                        chart.tooltip.headerFormatter(scope.tooltipheaderformatter());
+                                    }
+
+                                    if (attrs.tooltipkeyformatter) {
+                                        chart.tooltip.keyFormatter(scope.tooltipkeyformatter());
+                                    }
+
+                                    if (attrs.tooltipvalueformatter) {
+                                        chart.tooltip.valueFormatter(scope.tooltipvalueformatter());
+                                    }
+
+                                    if (attrs.tooltipcontentgenerator) {
+                                        var contentGenerator = scope.tooltipcontentgenerator();
+                                        chart.tooltip.contentGenerator(contentGenerator(chart));
+                                    }
+
                                     scope.d3Call(data, chart);
                                     var resizeHandler = onResizeChart(chart, element);
                                     nv.utils.windowResize(scope, resizeHandler);
