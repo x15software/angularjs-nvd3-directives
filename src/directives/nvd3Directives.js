@@ -1586,6 +1586,11 @@
                                         chart.scatter.pointShape(attrs.shape === undefined ? function(d) { return d.shape || 'circle'; } : scope.shape());
                                     }
 
+                                    if (attrs.forceSize) {
+                                        var s2 = Math.pow(attrs.forceSize, 2);
+                                        chart.pointRange([s2, s2]);
+                                    }
+
                                     //'pointActive', 'clipVoronoi', 'clipRadius', 'useVoronoi'
 
                                     if(attrs.xdomain){

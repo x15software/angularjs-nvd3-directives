@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.8 - 2017-12-12
+/*! angularjs-nvd3-directives - v0.0.8 - 2017-12-28
  * http://angularjs-nvd3-directives.github.io/angularjs-nvd3-directives
  * Copyright (c) 2017 Christian Maurer; Licensed Apache License, v2.0 */
 (function () {
@@ -2127,6 +2127,13 @@
                     chart.scatter.pointShape(attrs.shape === undefined ? function (d) {
                       return d.shape || 'circle';
                     } : scope.shape());
+                  }
+                  if (attrs.forceSize) {
+                    var s2 = Math.pow(attrs.forceSize, 2);
+                    chart.pointRange([
+                      s2,
+                      s2
+                    ]);
                   }
                   //'pointActive', 'clipVoronoi', 'clipRadius', 'useVoronoi'
                   if (attrs.xdomain) {
