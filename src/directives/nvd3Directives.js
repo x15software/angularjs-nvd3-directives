@@ -1430,6 +1430,10 @@
                                         chart.tooltip.contentGenerator(contentGenerator(chart));
                                     }
 
+                                    if (attrs.legendrightalign === 'true') {
+                                        chart.legendPosition('right');
+                                    }
+
                                     scope.d3Call(data, chart);
                                     var resizeHandler = onResizeChart(chart, element);
                                     nv.utils.windowResize(scope, resizeHandler);
